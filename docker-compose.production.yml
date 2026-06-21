@@ -43,7 +43,6 @@ services:
       - django
     volumes:
       - production_traefik:/etc/traefik/acme
-    ports:
 
 
   redis:
