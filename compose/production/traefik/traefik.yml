@@ -8,7 +8,7 @@ entryPoints:
 http:
   routers:
     web-router:
-      rule: 'Host(`sellino.ir`) || Host(`www.sellino.ir`)'
+      rule: 'Host(`sellino.me`) || Host(`www.sellino.me`)'
       entryPoints:
         - web
       middlewares:
@@ -16,7 +16,7 @@ http:
       service: django
 
     web-media-router:
-      rule: '(Host(`sellino.ir`) || Host(`www.sellino.ir`)) && PathPrefix(`/media/`)'
+      rule: '(Host(`sellino.me`) || Host(`www.sellino.me`)) && PathPrefix(`/media/`)'
       entryPoints:
         - web
       middlewares:

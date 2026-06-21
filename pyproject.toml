@@ -5,7 +5,7 @@ description = "Digital Invoice"
 readme = "README.md"
 license = { text = "Not open source" }
 authors = [
-  { name = "S", email = "info@sellino.ir" },
+  { name = "S", email = "info@sellino.me" },
 ]
 requires-python = "==3.14.*"
 classifiers = [

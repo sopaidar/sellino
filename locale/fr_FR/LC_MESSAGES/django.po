@@ -1,6 +1,6 @@
 # Translations for the Sellino project
 # Copyright (C) 2026 S
-# S <info@sellino.ir>, 2026.
+# S <info@sellino.me>, 2026.
 #
 #, fuzzy
 msgid ""
