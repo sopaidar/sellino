@@ -1,0 +1,575 @@
+{% extends "base.html" %}
+{% load static %}
+ {% block content %}
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sellino | فاکتور دیجیتال هوشمند</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;800;900&display=swap');
+
+    :root {
+      --bg: #070b18;
+      --card: rgba(255,255,255,.08);
+      --border: rgba(255,255,255,.14);
+      --text: #f8fafc;
+      --muted: #a7b0c3;
+      --primary: #6d5dfc;
+      --primary2: #00d4ff;
+      --success: #2ef2a0;
+      --warning: #ffd166;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Vazirmatn", sans-serif;
+      background:
+        radial-gradient(circle at 15% 20%, rgba(109,93,252,.35), transparent 30%),
+        radial-gradient(circle at 80% 10%, rgba(0,212,255,.28), transparent 25%),
+        radial-gradient(circle at 50% 90%, rgba(46,242,160,.16), transparent 30%),
+        var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .noise {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .04;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    .container {
+      width: min(1180px, calc(100% - 36px));
+      margin: auto;
+    }
+
+    header {
+      padding: 26px 0;
+      position: relative;
+      z-index: 5;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 18px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      backdrop-filter: blur(18px);
+      box-shadow: 0 20px 70px rgba(0,0,0,.22);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 900;
+      letter-spacing: -.5px;
+    }
+
+    .logo {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--primary), var(--primary2));
+      display: grid;
+      place-items: center;
+      box-shadow: 0 10px 35px rgba(0,212,255,.25);
+      font-weight: 900;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 26px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .nav-links a:hover { color: white; }
+
+    .btn {
+      border: 0;
+      cursor: pointer;
+      font-family: inherit;
+      border-radius: 16px;
+      padding: 13px 20px;
+      font-weight: 800;
+      color: white;
+      background: linear-gradient(135deg, var(--primary), var(--primary2));
+      box-shadow: 0 14px 35px rgba(109,93,252,.32);
+      transition: .25s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 20px 45px rgba(0,212,255,.28);
+    }
+
+    .btn.secondary {
+      background: rgba(255,255,255,.08);
+      border: 1px solid var(--border);
+      box-shadow: none;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.03fr .97fr;
+      align-items: center;
+      gap: 48px;
+      padding: 70px 0 40px;
+    }
+
+    .badge {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      background: rgba(46,242,160,.1);
+      color: #c9ffe8;
+      border: 1px solid rgba(46,242,160,.25);
+      border-radius: 999px;
+      padding: 9px 14px;
+      font-size: 13px;
+      margin-bottom: 22px;
+    }
+
+    h1 {
+      font-size: clamp(42px, 6vw, 78px);
+      line-height: 1.12;
+      margin: 0 0 22px;
+      letter-spacing: -2.5px;
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, #fff, #9eeaff 45%, #b7adff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .lead {
+      font-size: 19px;
+      line-height: 2;
+      color: var(--muted);
+      margin: 0 0 32px;
+      max-width: 650px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 42px;
+    }
+
+    .stat {
+      background: rgba(255,255,255,.055);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 18px;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 25px;
+      margin-bottom: 6px;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .mockup-wrap {
+      position: relative;
+      perspective: 1200px;
+    }
+
+    .orb {
+      position: absolute;
+      width: 250px;
+      height: 250px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--primary), var(--primary2));
+      filter: blur(55px);
+      opacity: .42;
+      left: 8%;
+      top: 0;
+      animation: float 7s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(28px); }
+    }
+
+    .invoice {
+      position: relative;
+      z-index: 2;
+      background: linear-gradient(180deg, rgba(255,255,255,.16), rgba(255,255,255,.07));
+      border: 1px solid var(--border);
+      border-radius: 34px;
+      padding: 26px;
+      backdrop-filter: blur(22px);
+      box-shadow: 0 40px 120px rgba(0,0,0,.45);
+      transform: rotateY(-9deg) rotateX(5deg);
+    }
+
+    .invoice-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 26px;
+    }
+
+    .pill {
+      background: rgba(46,242,160,.12);
+      color: var(--success);
+      border: 1px solid rgba(46,242,160,.25);
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .amount {
+      font-size: 38px;
+      font-weight: 900;
+      letter-spacing: -1px;
+      margin: 10px 0 4px;
+    }
+
+    .muted { color: var(--muted); }
+
+    .items {
+      display: grid;
+      gap: 12px;
+      margin: 28px 0;
+    }
+
+    .item {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 15px;
+      border-radius: 18px;
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.08);
+    }
+
+    .pay-box {
+      background: #fff;
+      color: #111827;
+      border-radius: 24px;
+      padding: 20px;
+      margin-top: 18px;
+    }
+
+    .pay-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      font-size: 14px;
+    }
+
+    .pay-btn {
+      width: 100%;
+      margin-top: 8px;
+      background: #111827;
+      color: white;
+      border: 0;
+      border-radius: 16px;
+      padding: 14px;
+      font-family: inherit;
+      font-weight: 900;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      padding: 50px 0 80px;
+    }
+
+    .feature {
+      background: rgba(255,255,255,.06);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 24px;
+      min-height: 190px;
+      transition: .25s ease;
+    }
+
+    .feature:hover {
+      transform: translateY(-6px);
+      background: rgba(255,255,255,.09);
+    }
+
+    .icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      background: rgba(109,93,252,.18);
+      margin-bottom: 16px;
+      font-size: 22px;
+    }
+
+    .feature h3 {
+      margin: 0 0 10px;
+      font-size: 18px;
+    }
+
+    .feature p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.9;
+      font-size: 14px;
+    }
+
+    .cta {
+      margin: 0 auto 70px;
+      text-align: center;
+      padding: 54px 24px;
+      border-radius: 34px;
+      background:
+        linear-gradient(135deg, rgba(109,93,252,.25), rgba(0,212,255,.15)),
+        rgba(255,255,255,.06);
+      border: 1px solid var(--border);
+    }
+
+    .cta h2 {
+      font-size: clamp(30px, 4vw, 52px);
+      margin: 0 0 14px;
+      letter-spacing: -1.5px;
+    }
+
+    .cta p {
+      color: var(--muted);
+      margin: 0 0 28px;
+      font-size: 17px;
+    }
+
+    footer {
+      color: var(--muted);
+      text-align: center;
+      padding: 26px 0 42px;
+      font-size: 13px;
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+        padding-top: 36px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .features {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .invoice {
+        transform: none;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .stats,
+      .features {
+        grid-template-columns: 1fr;
+      }
+
+      .actions {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      nav {
+        border-radius: 18px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="noise"></div>
+
+  <header class="container">
+    <nav>
+      <a href="#" class="brand">
+        <span class="logo">S</span>
+        <span>Sellino</span>
+      </a>
+
+      <div class="nav-links">
+        <a href="#features">امکانات</a>
+        <a href="#demo">دموی فاکتور</a>
+        <a href="#start">شروع</a>
+      </div>
+
+      <a class="btn secondary" href="#">ورود</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div>
+        <div class="badge">● نسل تازه فاکتور دیجیتال فارسی</div>
+
+        <h1>
+          فاکتور بساز، لینک بده،
+          <span class="gradient-text">پول بگیر.</span>
+        </h1>
+
+        <p class="lead">
+          سلینو یک تجربه ساده و قدرتمند برای ساخت فاکتور دیجیتال، ارسال لینک پرداخت،
+          فروش سریع، مدیریت مشتری و پیگیری وضعیت پرداخت است؛ شبیه ابزارهای جهانی،
+          اما فارسی، سبک و مناسب بازار ایران.
+        </p>
+
+        <div class="actions">
+          <a href="#start" class="btn">ساخت اولین فاکتور</a>
+          <a href="#demo" class="btn secondary">دیدن نمونه</a>
+        </div>
+
+        <div class="stats">
+          <div class="stat">
+            <strong>۳۰ ثانیه</strong>
+            <span>تا ساخت فاکتور</span>
+          </div>
+          <div class="stat">
+            <strong>۲۴/۷</strong>
+            <span>پرداخت آنلاین</span>
+          </div>
+          <div class="stat">
+            <strong>فارسی</strong>
+            <span>برای کسب‌وکار ایرانی</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="mockup-wrap" id="demo">
+        <div class="orb"></div>
+
+        <div class="invoice">
+          <div class="invoice-top">
+            <div>
+              <strong>فاکتور #SL-1042</strong>
+              <div class="muted">صادر شده برای: کافه نوا</div>
+            </div>
+            <span class="pill">آماده پرداخت</span>
+          </div>
+
+          <div class="muted">مبلغ قابل پرداخت</div>
+          <div class="amount">۴,۸۵۰,۰۰۰ تومان</div>
+          <div class="muted">مهلت پرداخت: امروز</div>
+
+          <div class="items">
+            <div class="item">
+              <span>طراحی صفحه محصول</span>
+              <strong>۲,۵۰۰,۰۰۰</strong>
+            </div>
+            <div class="item">
+              <span>راه‌اندازی لینک پرداخت</span>
+              <strong>۱,۲۰۰,۰۰۰</strong>
+            </div>
+            <div class="item">
+              <span>مالیات و کارمزد</span>
+              <strong>۱,۱۵۰,۰۰۰</strong>
+            </div>
+          </div>
+
+          <div class="pay-box">
+            <div class="pay-row">
+              <span>روش پرداخت</span>
+              <strong>درگاه آنلاین</strong>
+            </div>
+            <div class="pay-row">
+              <span>وضعیت</span>
+              <strong>در انتظار پرداخت</strong>
+            </div>
+            <button class="pay-btn">پرداخت امن با سلینو</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="features" id="features">
+      <div class="feature">
+        <div class="icon">🧾</div>
+        <h3>فاکتور حرفه‌ای</h3>
+        <p>ساخت فاکتور تمیز، قابل ارسال و مناسب مشتری در چند کلیک.</p>
+      </div>
+
+      <div class="feature">
+        <div class="icon">🔗</div>
+        <h3>لینک پرداخت</h3>
+        <p>برای هر فاکتور یک لینک اختصاصی بساز و در پیام‌رسان‌ها بفرست.</p>
+      </div>
+
+      <div class="feature">
+        <div class="icon">📊</div>
+        <h3>پیگیری وضعیت</h3>
+        <p>ببین کدام فاکتور پرداخت شده، کدام در انتظار است و کدام نیاز به یادآوری دارد.</p>
+      </div>
+
+      <div class="feature">
+        <div class="icon">⚡</div>
+        <h3>سریع و سبک</h3>
+        <p>بدون پیچیدگی نرم‌افزارهای حسابداری؛ مناسب فروشنده‌ها، فریلنسرها و تیم‌های کوچک.</p>
+      </div>
+    </section>
+
+    <section class="cta" id="start">
+      <h2>اولین فاکتورت را همین امروز بساز.</h2>
+      <p>سلینو فروش را از یک فایل خشک به یک تجربه پرداخت مدرن تبدیل می‌کند.</p>
+      <a href="#" class="btn">شروع رایگان</a>
+    </section>
+  </main>
+
+  <footer>
+    © <span id="year"></span> Sellino — فاکتور دیجیتال برای کسب‌وکارهای مدرن
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const invoice = document.querySelector(".invoice");
+
+    document.addEventListener("mousemove", (e) => {
+      if (window.innerWidth < 900) return;
+
+      const x = (e.clientX / window.innerWidth - 0.5) * 10;
+      const y = (e.clientY / window.innerHeight - 0.5) * -10;
+
+      invoice.style.transform =
+        `rotateY(${x - 9}deg) rotateX(${y + 5}deg)`;
+    });
+  </script>
+</body>
+</html>
+
+ {% endblock content %}
