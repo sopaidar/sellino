@@ -1,13 +1,13 @@
 
 {% load static i18n %}<!DOCTYPE html>
 {% get_current_language as LANGUAGE_CODE %}
-<html lang="{{ LANGUAGE_CODE }}">
-  <head>
+<html lang="fa" dir="rtl">
+    <head>
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <title>
       {% block title %}
-      Sellino
+ Sellino | فاکتور دیجیتال هوشمند
     {% endblock title %}
   </title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -76,6 +76,12 @@
         <p>Use this document as a way to quick start any new project.</p>
       {% endblock content %}
     {% endblock main %}
+      <footer>
+    <span id="year"></span>   فاکتور دیجیتال برای کسب‌وکارهای مدرن - تمامی حقوق برای شرکت دارا نوآوران پارس محفوظ است ©۱۴۰۵
+    <div>
+      <a referrerpolicy='origin' target='_blank' href='https://trustseal.enamad.ir/?id=748433&Code=25nBbFHd3GHPMfrxGPbGBrxGgbwL4Oew'><img referrerpolicy='origin' src='https://trustseal.enamad.ir/logo.aspx?id=748433&Code=25nBbFHd3GHPMfrxGPbGBrxGgbwL4Oew' alt='' style='cursor:pointer' code='25nBbFHd3GHPMfrxGPbGBrxGgbwL4Oew'></a>
+    </div>
+  </footer>
 
   </div>
   {% endblock body %}
@@ -83,15 +89,21 @@
   {% block modal %}
   {% endblock modal %}
   {% block inline_javascript %}
-    {% comment %}
-    Script tags with only code, no src (defer by default). To run
-    with a "defer" so that you run inline code:
-    <script>
-      window.addEventListener('DOMContentLoaded', () => {
-        /* Run whatever you want */
-      });
-    </script>
-    {% endcomment %}
+
+<script>
+      const invoice = document.querySelector(".invoice");
+
+    document.addEventListener("mousemove", (e) => {
+      if (window.innerWidth < 900) return;
+
+      const x = (e.clientX / window.innerWidth - 0.5) * 10;
+      const y = (e.clientY / window.innerHeight - 0.5) * -10;
+
+      invoice.style.transform =
+        `rotateY(${x + 9}deg) rotateX(${y + 5}deg)`;
+    });
+</script>
+
   {% endblock inline_javascript %}
 </body>
 </html>
